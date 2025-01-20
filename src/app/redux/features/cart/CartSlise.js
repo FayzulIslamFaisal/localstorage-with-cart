@@ -3,11 +3,16 @@ import { toast } from "react-toastify";
 
 // Helper function to save cart items to localStorage
 const saveToLocalStorage = (items) => {
-  localStorage.setItem("cartItems", JSON.stringify(items));
+  if (typeof window !== "undefined") {
+    localStorage.setItem("cartItems", JSON.stringify(items));
+  }
 };
 
 const initialState = {
-  cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
+  cartItems:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("cartItems")) || []
+      : [],
   cartTotalQuantity: 0,
   cartTotalAmount: 0,
 };
